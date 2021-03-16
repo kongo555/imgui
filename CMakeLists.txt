@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(imgui)
 
-add_library(imgui SHARED
+add_library(imgui STATIC
     imconfig.h
     imgui.h
     imgui.cpp
@@ -19,4 +19,8 @@ add_library(imgui SHARED
 add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GLAD)
 
 target_link_libraries(imgui PRIVATE glad glfw)
+IF (WIN32)
+    target_link_libraries(imgui PRIVATE -limm32)
+ENDIF()
+
 target_include_directories(imgui PUBLIC . /backends)
